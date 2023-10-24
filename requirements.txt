@@ -3,4 +3,4 @@ pycryptodome
 requests
 websockets
 urllib3
-pyzbar
+pyzbar[scripts]
