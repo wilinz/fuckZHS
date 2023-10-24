@@ -23,4 +23,4 @@ jobs:
 
     - name: Run Python script
       run: |
-        bash -c "python main.py -q"
+        python main.py -q
