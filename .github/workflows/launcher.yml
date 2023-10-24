@@ -14,12 +14,13 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # 替换为你想要使用的 Python 版本
+        python-version: '3.12.0'  # Replace with the Python version you want to use
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt  # 如果有依赖项，请提供 requirements.txt 文件的路径
+        pip install -r requirements.txt  # If you have dependencies, provide the path to the requirements.txt file
 
     - name: Run Python script
-      run: python main.py -q
+      run: |
+        bash -c "python main.py -q"
