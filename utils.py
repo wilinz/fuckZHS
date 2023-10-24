@@ -93,25 +93,24 @@ def wipeLine():
         width = 80
     print('\r' + ' ' * (width), end = '\r', flush=True)
 
-def progressBar (iteration, total, prefix = '', suffix = '', decimals = 1,
-                      length = (os.get_terminal_size().columns-4), fill = '#'):
-    """
-    ### Call in a loop to create terminal progress bar
-    * `iteration`   - Required  : current iteration (Int)
-    * `total`       - Required  : total iterations (Int)
-    * `prefix`      - Optional  : prefix string (Str)
-    * `suffix`      - Optional  : suffix string (Str)
-    * `decimals`    - Optional  : positive number of decimals in percent complete (Int)
-    * `length`      - Optional  : character length of bar (Int)
-    * `fill`        - Optional  : bar fill character (Str)
-    """
+def progressBar(iteration, total, prefix='', suffix='', decimals=1, length=None, fill='#'):
+    if not length:  # 如果未提供长度，则使用默认值
+        length = 30
+
+    if os.isatty(1):  # 在终端环境下执行相关代码
+        try:
+            terminal_width = os.get_terminal_size().columns
+            length = min(length, terminal_width - len(prefix) - len(suffix) - 4)
+        except OSError:
+            pass
+
     percent = ("{0:." + str(decimals) + "f}").format(100 * (iteration / float(total)))
     prefix = f"{prefix} |"
     suffix = f"| {percent}% {suffix}"
     bar_len = length - len(prefix) - len(suffix)
     filled_len = int(bar_len * iteration // total)
     bar = fill * filled_len + ' ' * (bar_len - filled_len)
-    print(f"\r{prefix}{bar}{suffix}", end = '\r')
+    print(f"\r{prefix}{bar}{suffix}", end='\r')
     if iteration >= total:
         wipeLine()
 
