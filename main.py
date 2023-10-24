@@ -109,19 +109,23 @@ if logger.getLevel() == "DEBUG":
           "*****************************\n")
 
 if args.proxy:  # parse proxy
-    match args.proxy.lower().split("://"):
-        case ["http" | "https", proxy]:
-            proxies["http"] = args.proxy
-            proxies["https"] = args.proxy
-        case ["socks5", proxy]:
-            proxies["socks5"] = args.proxy
-        case ["all", proxy]:
-            proxies["http"] = args.proxy
-            proxies["https"] = args.proxy
-            proxies["socks5"] = args.proxy
-        case [schema]:
-            print(f"*Unsupported proxy type: {schema}")
-            exit(1)
+    try:
+        match args.proxy.lower().split("://"):
+            case ["http" | "https", proxy]:
+                proxies["http"] = args.proxy
+                proxies["https"] = args.proxy
+            case ["socks5", proxy]:
+                proxies["socks5"] = args.proxy
+            case ["all", proxy]:
+                proxies["http"] = args.proxy
+                proxies["https"] = args.proxy
+                proxies["socks5"] = args.proxy
+            case [schema]:
+                print(f"*Unsupported proxy type: {schema}")
+                exit(1)
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        pass
 
 # check update
 with open(getRealPath("meta.json"), "r") as f:
