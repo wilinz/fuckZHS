@@ -3,9 +3,11 @@
 import io
 import os
 import sys
+import urllib.parse
 from requests.cookies import RequestsCookieJar, create_cookie
 from PIL import Image, ImageOps
 from datetime import timedelta
+from pyzbar import pyzbar
 
 
 def HMS(*args, **kw):
