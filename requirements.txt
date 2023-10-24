@@ -2,3 +2,5 @@ Pillow>=8.1.1
 pycryptodome
 requests
 websockets
+urllib3
+pyzbar
